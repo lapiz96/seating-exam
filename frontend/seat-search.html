@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find My Exam Seat</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="login-page">
+      <div class="login-card">
+        <h1>Find My Seat</h1>
+        <p class="muted">Enter your registration number to check your exam bench.</p>
+        <label>Registration Number</label>
+        <input id="searchRegNo" type="text" placeholder="CET24CS001" />
+        <button id="searchBtn" type="button">Search Seat</button>
+        <p id="searchMessage" class="error-text"></p>
+        <div id="resultCard" class="hidden seat-result"></div>
+        <p class="muted" style="margin-top: 14px">Admin page: <a href="/admin">/admin</a></p>
+      </div>
+    </div>
+    <script src="./seat-search.js"></script>
+  </body>
+</html>

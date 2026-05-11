@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Exam Seating Arrangement</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="loginView" class="login-page">
+      <div class="login-card">
+        <h1>Smart Exam Seating Arrangement</h1>
+        <p class="muted">Admin login required to continue</p>
+        <form id="loginForm">
+          <label>Username</label>
+          <input id="username" type="text" placeholder="admin" required />
+          <label>Password</label>
+          <input id="password" type="password" placeholder="admin123" required />
+          <button type="submit">Login</button>
+          <p id="loginMessage" class="error-text"></p>
+        </form>
+      </div>
+    </div>
+
+    <div id="appView" class="app-shell hidden">
+      <aside class="left-panel">
+        <div class="panel-top">
+          <div class="exam-cell">Exam<br />Cell</div>
+          <div class="menu-title">Menu</div>
+        </div>
+        <nav>
+          <button class="nav-btn active" data-step="upload">Upload Excel</button>
+          <button class="nav-btn" data-step="exam">Exam & Hall</button>
+          <button class="nav-btn" data-step="preview">Preview</button>
+          <button class="nav-btn" data-step="pdf">PDF</button>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <h2>Proforma 1 - Seating Arrangement</h2>
+        </header>
+
+        <section id="step-upload" class="step-card active-step">
+          <h3>Upload Student Excel Sheet</h3>
+          <p class="muted">
+            Required columns: <b>Registration Number</b>, <b>Department</b>. Optional: <b>Code</b> (if omitted, code auto-generates as CR1/EC1/ME1 style)
+          </p>
+          <p class="muted">Subject, Class, Exam Name, and Date are entered in the website during Create Exam.</p>
+          <div class="form-row">
+            <input id="excelFile" type="file" accept=".xlsx,.xls" />
+            <button id="uploadBtn" type="button">Upload</button>
+          </div>
+          <p id="uploadMessage" class="info-text"></p>
+          <div id="uploadStats" class="stat-grid hidden"></div>
+          <div class="table-wrap">
+            <table id="studentTable" class="hidden">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Reg No</th>
+                  <th>Department</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="step-exam" class="step-card">
+          <h3>Create Exam and Hall Details</h3>
+          <div class="form-grid">
+            <input id="examName" placeholder="Exam Name" />
+            <input id="examDate" type="date" />
+            <input id="className" placeholder="Class (Example: S4 CSE A)" />
+            <input id="session" placeholder="Session (Morning/Evening)" />
+            <input id="subject" placeholder="Subject" />
+            <select id="departmentSelect">
+              <option value="ALL">Department (All)</option>
+            </select>
+            <input id="semester" placeholder="Semester" />
+            <input id="hallName" placeholder="Hall Name / Room No" />
+            <input id="leftBenches" type="number" min="1" placeholder="Left Side Benches" />
+            <input id="rightBenches" type="number" min="1" placeholder="Right Side Benches" />
+            <input id="studentsPerBench" type="number" min="1" max="2" value="1" placeholder="Students Per Bench" />
+            <input id="collegeName" placeholder="College Name" />
+          </div>
+          <button id="previewBtn" type="button">Generate Seating Preview</button>
+          <p id="previewMessage" class="error-text"></p>
+        </section>
+
+        <section id="step-preview" class="step-card">
+          <h3>Seating Preview</h3>
+          <div class="preview-actions">
+            <button id="shuffleBtn" type="button">Shuffle Again</button>
+            <button id="pdfBtn" type="button">Generate PDF</button>
+          </div>
+          <p id="pdfMessage" class="info-text"></p>
+          <div class="preview-head">
+            <div>LEFT SIDE</div>
+            <div>RIGHT SIDE</div>
+          </div>
+          <div id="previewRows"></div>
+        </section>
+
+        <section id="step-pdf" class="step-card">
+          <h3>PDF Download</h3>
+          <a id="pdfLink" class="hidden" target="_blank">Download Seating Arrangement PDF</a>
+          <p id="finalMessage" class="info-text"></p>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
