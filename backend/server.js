@@ -19,9 +19,21 @@ const DATA_DIR = path.join(BACKEND_DIR, "data");
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
+// CORS: needed if HTML is on GitHub Pages and API is on another host (set ALLOWED_ORIGIN to your Pages URL in production)
+app.use((req, res, next) => {
+  const allowed = process.env.ALLOWED_ORIGIN || "*";
+  res.header("Access-Control-Allow-Origin", allowed);
+  res.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
+
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
+// Same UI at /seat-search.html and /frontend/seat-search.html (GitHub folder layout)
 app.use(express.static(FRONTEND_DIR, { index: false }));
+app.use("/frontend", express.static(FRONTEND_DIR, { index: false }));
 app.use("/generated", express.static(GENERATED_DIR));
 
 const storage = multer.diskStorage({
@@ -464,7 +476,9 @@ app.post("/api/generate-pdf", async (req, res) => {
     });
     await browser.close();
 
-    return res.json({ ok: true, fileName, url: `/generated/${fileName}` });
+    const base = process.env.PUBLIC_BASE_URL || "";
+    const pdfPath = `/generated/${fileName}`;
+    return res.json({ ok: true, fileName, url: pdfPath, fullUrl: base ? `${base.replace(/\/$/, "")}${pdfPath}` : "" });
   } catch (error) {
     return res.status(500).json({ message: `Failed to generate PDF: ${error.message}` });
   }
@@ -472,6 +486,15 @@ app.post("/api/generate-pdf", async (req, res) => {
 
 app.get("/api/health", (req, res) => {
   res.json({ ok: true });
+});
+
+app.post("/api/admin/clear-arrangements", (req, res) => {
+  const { password } = req.body || {};
+  if (password !== "admin123") {
+    return res.status(401).json({ message: "Invalid password." });
+  }
+  saveArrangements([]);
+  return res.json({ ok: true, message: "Saved seating data cleared. arrangements.json is now empty." });
 });
 
 app.get("/api/find-seat", (req, res) => {
@@ -532,6 +555,6 @@ app.get("/admin", (req, res) => {
   res.sendFile(path.join(FRONTEND_DIR, "admin.html"));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server started on http://localhost:${PORT}`);
 });

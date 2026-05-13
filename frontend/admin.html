@@ -49,6 +49,10 @@
             <button id="uploadBtn" type="button">Upload</button>
           </div>
           <p id="uploadMessage" class="info-text"></p>
+          <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+            <button id="clearArrBtn" type="button" style="margin-top: 0; width: auto; padding: 8px 16px; background-color: #dc3545; color: white; border-radius: 4px; border: none; cursor: pointer; font-size: 14px;">Clear Data</button>
+          </div>
+          <p id="clearMessage" class="info-text" style="text-align: right;"></p>
           <div id="uploadStats" class="stat-grid hidden"></div>
           <div class="table-wrap">
             <table id="studentTable" class="hidden">
@@ -106,6 +110,7 @@
       </main>
     </div>
 
+    <script src="./api-config.js"></script>
     <script src="./admin.js"></script>
   </body>
 </html>

@@ -3,6 +3,11 @@ const btn = document.getElementById("searchBtn");
 const msg = document.getElementById("searchMessage");
 const result = document.getElementById("resultCard");
 
+function api(path) {
+  const base = (typeof window !== "undefined" && window.API_BASE) || "";
+  return `${String(base).replace(/\/$/, "")}${path}`;
+}
+
 btn.addEventListener("click", async () => {
   msg.textContent = "";
   result.classList.add("hidden");
@@ -12,7 +17,7 @@ btn.addEventListener("click", async () => {
     return;
   }
 
-  const res = await fetch(`/api/find-seat?regNo=${encodeURIComponent(regNo)}`);
+  const res = await fetch(api(`/api/find-seat?regNo=${encodeURIComponent(regNo)}`));
   const data = await res.json();
   if (!res.ok) {
     msg.textContent = data.message || "Seat not found.";

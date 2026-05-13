@@ -1,5 +1,10 @@
 const state = { sessionId: null, rows: [] };
 
+function api(path) {
+  const base = (typeof window !== "undefined" && window.API_BASE) || "";
+  return `${base.replace(/\/$/, "")}${path}`;
+}
+
 const el = {
   loginView: document.getElementById("loginView"),
   appView: document.getElementById("appView"),
@@ -21,7 +26,9 @@ const el = {
   finalMessage: document.getElementById("finalMessage"),
   departmentSelect: document.getElementById("departmentSelect"),
   classSelect: document.getElementById("classSelect"),
-  navBtns: document.querySelectorAll(".nav-btn")
+  navBtns: document.querySelectorAll(".nav-btn"),
+  clearArrBtn: document.getElementById("clearArrBtn"),
+  clearMessage: document.getElementById("clearMessage")
 };
 
 function switchStep(step) {
@@ -90,9 +97,32 @@ function renderPreview(rows) {
 
 el.navBtns.forEach((btn) => btn.addEventListener("click", () => switchStep(btn.dataset.step)));
 
+if (el.clearArrBtn) {
+  el.clearArrBtn.addEventListener("click", async () => {
+    el.clearMessage.textContent = "";
+    
+    const isConfirmed = confirm("Are you sure you want to clear the saved seating data?");
+    if (!isConfirmed) return;
+    
+    const password = prompt("Enter admin password to confirm:");
+    if (!password || !password.trim()) {
+      el.clearMessage.textContent = "Password is required to clear data.";
+      return;
+    }
+    
+    const res = await fetch(api("/api/admin/clear-arrangements"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: password.trim() })
+    });
+    const data = await res.json().catch(() => ({}));
+    el.clearMessage.textContent = data.message || (res.ok ? "Cleared." : "Request failed.");
+  });
+}
+
 el.loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const res = await fetch("/api/login", {
+  const res = await fetch(api("/api/login"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -116,7 +146,7 @@ el.uploadBtn.addEventListener("click", async () => {
   }
   const formData = new FormData();
   formData.append("studentFile", file);
-  const res = await fetch("/api/upload", { method: "POST", body: formData });
+  const res = await fetch(api("/api/upload"), { method: "POST", body: formData });
   const data = await res.json();
   if (!res.ok) {
     el.uploadMessage.textContent = data.message || "Upload failed.";
@@ -161,7 +191,7 @@ el.previewBtn.addEventListener("click", async () => {
   const err = validateExamPayload(examDetails);
   el.previewMessage.textContent = err;
   if (err) return;
-  const res = await fetch("/api/generate-preview", {
+  const res = await fetch(api("/api/generate-preview"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ sessionId: state.sessionId, examDetails })
@@ -177,7 +207,7 @@ el.previewBtn.addEventListener("click", async () => {
 });
 
 el.shuffleBtn.addEventListener("click", async () => {
-  const res = await fetch("/api/shuffle-again", {
+  const res = await fetch(api("/api/shuffle-again"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ sessionId: state.sessionId })
@@ -187,12 +217,13 @@ el.shuffleBtn.addEventListener("click", async () => {
     el.pdfMessage.textContent = data.message || "Shuffle failed.";
     return;
   }
+  state.rows = data.rows;
   renderPreview(data.rows);
 });
 
 el.pdfBtn.addEventListener("click", async () => {
   el.pdfMessage.textContent = "Generating PDF...";
-  const res = await fetch("/api/generate-pdf", {
+  const res = await fetch(api("/api/generate-pdf"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ sessionId: state.sessionId })
@@ -202,7 +233,8 @@ el.pdfBtn.addEventListener("click", async () => {
     el.pdfMessage.textContent = data.message || "PDF generation failed.";
     return;
   }
-  el.pdfLink.href = data.url;
+  const link = data.fullUrl || api(data.url);
+  el.pdfLink.href = link;
   el.pdfLink.classList.remove("hidden");
   el.finalMessage.textContent = `File: ${data.fileName}`;
   switchStep("pdf");

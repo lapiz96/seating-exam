@@ -1,161 +1,12 @@
 [
   {
-    "arrangementId": "1778514181803-k5nw76",
-    "sessionId": "1778514115646-uf65p3",
-    "createdAt": "2026-05-11T15:43:01.803Z",
+    "arrangementId": "1778663564184-9qs8e8",
+    "sessionId": "1778663552847-mfeln2",
+    "createdAt": "2026-05-13T09:12:44.184Z",
     "examDetails": {
       "examName": "dbms",
-      "examDate": "2026-05-14",
-      "session": "moring",
-      "subject": "",
-      "department": "ALL",
-      "className": "ALL",
-      "semester": "4",
-      "hallName": "5",
-      "leftBenches": 5,
-      "rightBenches": 5,
-      "studentsPerBench": 2,
-      "collegeName": "COET"
-    },
-    "rows": [
-      {
-        "left": {
-          "benchNo": "L1",
-          "students": [
-            {
-              "code": "CR3",
-              "regNo": "CET24CS003",
-              "department": "CSE",
-              "name": "Jithu",
-              "semester": "S3",
-              "subject": "",
-              "className": ""
-            },
-            {
-              "code": "ME1",
-              "regNo": "CET24ME001",
-              "department": "ME",
-              "name": "Sonnali",
-              "semester": "S6",
-              "subject": "",
-              "className": ""
-            }
-          ]
-        },
-        "right": {
-          "benchNo": "R1",
-          "students": [
-            {
-              "code": "CR1",
-              "regNo": "CET24CS001",
-              "department": "CSE",
-              "name": "Arun",
-              "semester": "S3",
-              "subject": "",
-              "className": ""
-            },
-            {
-              "code": "ME2",
-              "regNo": "CET24ME002",
-              "department": "ME",
-              "name": "Rajput",
-              "semester": "S6",
-              "subject": "",
-              "className": ""
-            }
-          ]
-        }
-      },
-      {
-        "left": {
-          "benchNo": "L2",
-          "students": [
-            {
-              "code": "CR2",
-              "regNo": "CET24CS002",
-              "department": "CSE",
-              "name": "Manu",
-              "semester": "S3",
-              "subject": "",
-              "className": ""
-            },
-            {
-              "code": "CR4",
-              "regNo": "CET24CS004",
-              "department": "CSE",
-              "name": "Anu",
-              "semester": "S3",
-              "subject": "",
-              "className": ""
-            }
-          ]
-        },
-        "right": {
-          "benchNo": "R2",
-          "students": [
-            null,
-            null
-          ]
-        }
-      },
-      {
-        "left": {
-          "benchNo": "L3",
-          "students": [
-            null,
-            null
-          ]
-        },
-        "right": {
-          "benchNo": "R3",
-          "students": [
-            null,
-            null
-          ]
-        }
-      },
-      {
-        "left": {
-          "benchNo": "L4",
-          "students": [
-            null,
-            null
-          ]
-        },
-        "right": {
-          "benchNo": "R4",
-          "students": [
-            null,
-            null
-          ]
-        }
-      },
-      {
-        "left": {
-          "benchNo": "L5",
-          "students": [
-            null,
-            null
-          ]
-        },
-        "right": {
-          "benchNo": "R5",
-          "students": [
-            null,
-            null
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "arrangementId": "1778520593553-w6zfhb",
-    "sessionId": "1778520356201-p9o38k",
-    "createdAt": "2026-05-11T17:29:53.560Z",
-    "examDetails": {
-      "examName": "os",
       "examDate": "2026-05-04",
-      "session": "evening",
+      "session": "moring",
       "subject": "os",
       "department": "ALL",
       "className": "ALL",
@@ -163,7 +14,7 @@
       "hallName": "9",
       "leftBenches": 5,
       "rightBenches": 5,
-      "studentsPerBench": 2,
+      "studentsPerBench": 1,
       "collegeName": "COET"
     },
     "rows": [
@@ -172,20 +23,11 @@
           "benchNo": "L1",
           "students": [
             {
-              "code": "CR2",
-              "regNo": "CET24CS002",
+              "code": "CR1",
+              "regNo": "CET24CS001",
               "department": "CSE",
-              "name": "Manu",
+              "name": "Arun",
               "semester": "S3",
-              "subject": "",
-              "className": ""
-            },
-            {
-              "code": "ME2",
-              "regNo": "CET24ME002",
-              "department": "ME",
-              "name": "Rajput",
-              "semester": "S6",
               "subject": "",
               "className": ""
             }
@@ -194,15 +36,6 @@
         "right": {
           "benchNo": "R1",
           "students": [
-            {
-              "code": "CR4",
-              "regNo": "CET24CS004",
-              "department": "CSE",
-              "name": "Anu",
-              "semester": "S3",
-              "subject": "",
-              "className": ""
-            },
             {
               "code": "ME1",
               "regNo": "CET24ME001",
@@ -227,23 +60,21 @@
               "semester": "S3",
               "subject": "",
               "className": ""
-            },
-            {
-              "code": "CR1",
-              "regNo": "CET24CS001",
-              "department": "CSE",
-              "name": "Arun",
-              "semester": "S3",
-              "subject": "",
-              "className": ""
             }
           ]
         },
         "right": {
           "benchNo": "R2",
           "students": [
-            null,
-            null
+            {
+              "code": "ME2",
+              "regNo": "CET24ME002",
+              "department": "ME",
+              "name": "Rajput",
+              "semester": "S6",
+              "subject": "",
+              "className": ""
+            }
           ]
         }
       },
@@ -251,15 +82,29 @@
         "left": {
           "benchNo": "L3",
           "students": [
-            null,
-            null
+            {
+              "code": "CR4",
+              "regNo": "CET24CS004",
+              "department": "CSE",
+              "name": "Anu",
+              "semester": "S3",
+              "subject": "",
+              "className": ""
+            }
           ]
         },
         "right": {
           "benchNo": "R3",
           "students": [
-            null,
-            null
+            {
+              "code": "CR2",
+              "regNo": "CET24CS002",
+              "department": "CSE",
+              "name": "Manu",
+              "semester": "S3",
+              "subject": "",
+              "className": ""
+            }
           ]
         }
       },
@@ -267,14 +112,12 @@
         "left": {
           "benchNo": "L4",
           "students": [
-            null,
             null
           ]
         },
         "right": {
           "benchNo": "R4",
           "students": [
-            null,
             null
           ]
         }
@@ -283,14 +126,12 @@
         "left": {
           "benchNo": "L5",
           "students": [
-            null,
             null
           ]
         },
         "right": {
           "benchNo": "R5",
           "students": [
-            null,
             null
           ]
         }
